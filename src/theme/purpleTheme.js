@@ -9,6 +9,7 @@ export const purpleTheme = createTheme({
     secondary: {
       main: '#543884'
     },
+    // TODO: make a color pallet in the app 
     error: {
       main: red.A400
     }
