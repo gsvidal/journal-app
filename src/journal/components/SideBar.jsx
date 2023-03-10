@@ -40,9 +40,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
               <ListItemButton
                 sx={{
                   '& .MuiTouchRipple-child': {
-                    backgroundColor: 'red',
-                  },
-                  '& .MuiTouchRipple-child:hover': {
+                    backgroundColor: '#5300e4',
                   },
                 }}
               >
