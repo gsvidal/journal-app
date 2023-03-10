@@ -26,7 +26,7 @@ export const RegisterPage = () => {
           </Grid>
 
           <Grid container direction="row" justifyContent="end">
-            <Typography sx={{mr: 2}}>Already have an account?</Typography>
+            <Typography sx={{ mr: 2 }}>Already have an account?</Typography>
             <Link component={RouterLink} color="inherit" to="/auth/login">
               Log in
             </Link>
