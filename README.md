@@ -3,6 +3,7 @@
 - Technical Features: Auth, router, theme
 Vite, unit testing
 Material UI
+Custom Hooks (useForm)
 
 1st part:
 Path files creation
