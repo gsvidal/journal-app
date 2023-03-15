@@ -5,6 +5,8 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
+import { useDispatch } from 'react-redux';
+import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
 
 export const LoginPage = () => {
   const { email, password, handleInputChange } = useForm({
@@ -12,14 +14,18 @@ export const LoginPage = () => {
     password: '',
   });
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log({ email, password });
+    dispatch(checkingAuthentication());
   };
 
   const handleGoogleSignIn = () => {
     console.log('onGoogleSignIn');
-  }
+    dispatch(startGoogleSignIn());
+  };
 
   return (
     <AuthLayout title="Login">
@@ -61,7 +67,12 @@ export const LoginPage = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Button sx={{ py: 2 }} variant="contained" fullWidth onClick={handleGoogleSignIn}>
+              <Button
+                sx={{ py: 2 }}
+                variant="contained"
+                fullWidth
+                onClick={handleGoogleSignIn}
+              >
                 <GoogleIcon />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
               </Button>
