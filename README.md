@@ -3,6 +3,7 @@
 - Technical Features: Auth, router, theme
 Vite, unit testing
 Material UI
+React Hooks (useMemo)
 Custom Hooks (useForm)
 Thunks (two when trying to log in with and without google)
 

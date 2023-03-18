@@ -1,11 +1,10 @@
-//import './LoginPage.css';
-
+import { useMemo } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
 
 export const LoginPage = () => {
@@ -15,6 +14,9 @@ export const LoginPage = () => {
   });
 
   const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.auth);
+
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,6 +59,7 @@ export const LoginPage = () => {
           <Grid container spacing={2} sx={{ my: 2 }}>
             <Grid item xs={12} sm={6}>
               <Button
+                disabled={isAuthenticating}
                 sx={{ py: 2 }}
                 variant="contained"
                 fullWidth
@@ -68,6 +71,7 @@ export const LoginPage = () => {
 
             <Grid item xs={12} sm={6}>
               <Button
+                disabled={isAuthenticating}
                 sx={{ py: 2 }}
                 variant="contained"
                 fullWidth
