@@ -20,12 +20,12 @@ export const LoginPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password });
+    // console.log({ email, password });
     dispatch(checkingAuthentication());
   };
 
   const handleGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
+    // console.log('onGoogleSignIn');
     dispatch(startGoogleSignIn());
   };
 
