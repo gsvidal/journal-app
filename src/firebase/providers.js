@@ -45,7 +45,11 @@ export const registerUserWithEmailPassword = async ({
       password
     );
     const { uid, photoURL } = resp.user;
-    console.log(resp);
+
+    // Update displayName
+    await updateProfile( FirebaseAuth.currentUser, { displayName });
+    
+    // console.log(resp);
     return {
       ok: true,
       uid,
@@ -54,9 +58,25 @@ export const registerUserWithEmailPassword = async ({
       displayName,
     };
   } catch (error) {
+    let customErrorMessage;
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        customErrorMessage =
+          'There is an existing account with associated with this email address';
+      break;
+      case 'auth/invalid-email':
+        customErrorMessage = 'Invalid Email';
+      break;
+      case 'auth/operation-not-allowed':
+        customErrorMessage = 'Operation not allowed';
+      break;
+      case 'auth/weak-password':
+        customErrorMessage = 'Weak password';
+      break;
+    }
     return {
       ok: false,
-      errorMessage: error.message,
+      errorMessage: customErrorMessage,
     };
   }
 };
