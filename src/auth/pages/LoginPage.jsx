@@ -42,6 +42,7 @@ export const LoginPage = () => {
               type="email"
               placeholder="email@gmail.com"
               fullWidth
+              autoComplete="username"
             />
           </Grid>
           <Grid item xs={12} sx={{ my: { xs: 2, md: 3 } }}>
@@ -53,6 +54,7 @@ export const LoginPage = () => {
               type="password"
               placeholder="password"
               fullWidth
+              autoComplete="current-password"
             />
           </Grid>
 

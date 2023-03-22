@@ -3,6 +3,8 @@ import { Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from '../../hooks';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useDispatch } from 'react-redux';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 const formData = {
   displayName: '',
@@ -35,9 +37,13 @@ export const RegisterPage = () => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormSubmitted(true);
+    if(!isFormValid) return;
+    dispatch(startCreatingUserWithEmailPassword(formState));
   };
 
   return (
@@ -56,6 +62,7 @@ export const RegisterPage = () => {
               // double negation (!!) will convert a string to a boolean
               error={formSubmitted && !!displayNameValid}
               helperText={formSubmitted && displayNameValid}
+
             />
           </Grid>
           <Grid item xs={12} sx={{ my: { xs: 2, md: 3 } }}>
@@ -69,6 +76,7 @@ export const RegisterPage = () => {
               onChange={handleInputChange}
               error={formSubmitted && !!emailValid}
               helperText={formSubmitted && emailValid}
+              autoComplete="username"
             />
           </Grid>
           <Grid item xs={12} sx={{ my: { xs: 2, md: 3 } }}>
@@ -82,6 +90,7 @@ export const RegisterPage = () => {
               onChange={handleInputChange}
               error={formSubmitted && !!passwordValid}
               helperText={formSubmitted && passwordValid}
+              autoComplete="current-password"
             />
           </Grid>
 
