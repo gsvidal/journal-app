@@ -1,7 +1,9 @@
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from 'firebase/auth';
 import { FirebaseAuth } from './config';
 
@@ -47,9 +49,8 @@ export const registerUserWithEmailPassword = async ({
     const { uid, photoURL } = resp.user;
 
     // Update displayName
-    await updateProfile( FirebaseAuth.currentUser, { displayName });
-    
-    // console.log(resp);
+    await updateProfile(FirebaseAuth.currentUser, { displayName });
+
     return {
       ok: true,
       uid,
@@ -63,16 +64,45 @@ export const registerUserWithEmailPassword = async ({
       case 'auth/email-already-in-use':
         customErrorMessage =
           'There is an existing account with associated with this email address';
-      break;
+        break;
       case 'auth/invalid-email':
         customErrorMessage = 'Invalid Email';
-      break;
+        break;
       case 'auth/operation-not-allowed':
         customErrorMessage = 'Operation not allowed';
-      break;
+        break;
       case 'auth/weak-password':
         customErrorMessage = 'Weak password';
-      break;
+        break;
+    }
+    return {
+      ok: false,
+      errorMessage: customErrorMessage,
+    };
+  }
+};
+
+export const loginWithEmailPassword = async ({ email, password }) => {
+  try {
+    const {
+      user: { uid, photoURL, displayName },
+    } = await signInWithEmailAndPassword(FirebaseAuth, email, password);
+    return {
+      ok: true,
+      uid,
+      photoURL,
+      email,
+      displayName,
+    };
+  } catch (error) {
+    let customErrorMessage;
+    switch (error.code) {
+      case 'auth/user-not-found':
+        customErrorMessage = 'Incorrect Email';
+        break;
+      case 'auth/wrong-password':
+        customErrorMessage = 'Your password is incorrect';
+        break;
     }
     return {
       ok: false,

@@ -1,11 +1,21 @@
 import { useMemo } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
+import {
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from '../../store/auth';
 
 export const LoginPage = () => {
   const { email, password, handleInputChange } = useForm({
@@ -14,18 +24,17 @@ export const LoginPage = () => {
   });
 
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
+  const { status, errorMessage } = useSelector((state) => state.auth);
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log({ email, password });
-    dispatch(checkingAuthentication());
+    // dispatch(checkingAuthentication());
+    dispatch(startLoginWithEmailPassword({ email, password }));
   };
 
   const handleGoogleSignIn = () => {
-    // console.log('onGoogleSignIn');
     dispatch(startGoogleSignIn());
   };
 
@@ -56,6 +65,14 @@ export const LoginPage = () => {
               fullWidth
               autoComplete="current-password"
             />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{ my: { xs: 2, md: 3 } }}
+            display={!errorMessage && 'none'}
+          >
+            <Alert severity="error">{errorMessage}</Alert>
           </Grid>
 
           <Grid container spacing={2} sx={{ my: 2 }}>
