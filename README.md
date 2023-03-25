@@ -6,6 +6,7 @@
   React Hooks (useMemo)
   Custom Hooks (useForm)
   Thunks (when trying to log in with google and the second one without google)
+  Protect/Private routes
 
 1st part:
 Path files creation
