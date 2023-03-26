@@ -8,7 +8,6 @@ import { AuthRoutes } from '../auth/routes/AuthRoutes';
 import { FirebaseAuth } from '../firebase/config';
 import { useCheckAuth } from '../hooks';
 import { JournalRoutes } from '../journal/routes/JournalRoutes';
-import { login, logout } from '../store/auth';
 import { CheckingAuth } from '../ui';
 
 export const AppRouter = () => {
