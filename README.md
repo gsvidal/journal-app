@@ -7,6 +7,8 @@
   Custom Hooks (useForm)
   Thunks (when trying to log in with google and the second one without google)
   Protect/Private routes
+  onAuthStateChanged(Firebase) similar to an Observer will run each time a user has logged in or logged out
+  Animate.css
 
 1st part:
 Path files creation
@@ -20,6 +22,7 @@ Thunks
 Firebase (backend + db)
 Firestore ()
 Google SignIn
+
 
 3rd part:
 
